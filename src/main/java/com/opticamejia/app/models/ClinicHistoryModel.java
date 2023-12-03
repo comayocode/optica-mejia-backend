@@ -1,5 +1,6 @@
 package com.opticamejia.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,9 +19,11 @@ public class ClinicHistoryModel {
     private String prescription;
 
     @ManyToOne // muchas historia clínicas pertenecen a un paciente
+    @JsonIgnore // ignorar el paciente en el JSON
     private PatientModel patient;
 
     @OneToOne(mappedBy = "clinic_history")
+    @JsonIgnore // ignorar la formula en el JSON
     private FormulasModel formula;
 
     public int getId() {
