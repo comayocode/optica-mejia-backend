@@ -2,6 +2,8 @@ package com.opticamejia.app.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity // indicar que es un modelo real
 @Table(name = "patients") // crear tabla "patients"
 public class PatientModel {
@@ -19,6 +21,9 @@ public class PatientModel {
     private String occupation;
     private String eps;
     private String pathologies;
+
+    @OneToMany(mappedBy = "patient") // un paciente puede tener muchas historias clínicas
+    private List<ClinicHistoryModel> clinic_history;
 
     public int getId() {
         return id;
@@ -98,5 +103,13 @@ public class PatientModel {
 
     public void setPathologies(String pathologies) {
         this.pathologies = pathologies;
+    }
+
+    public List<ClinicHistoryModel> getClinic_history() {
+        return clinic_history;
+    }
+
+    public void setClinic_history(List<ClinicHistoryModel> clinic_history) {
+        this.clinic_history = clinic_history;
     }
 }
