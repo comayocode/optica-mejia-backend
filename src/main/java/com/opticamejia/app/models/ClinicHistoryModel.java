@@ -24,7 +24,7 @@ public class ClinicHistoryModel {
 
     @OneToOne(mappedBy = "clinic_history")
     @JsonIgnore // ignorar la formula en el JSON
-    private FormulasModel formula;
+    private FormulaModel formula;
 
     public int getId() {
         return id;
@@ -74,11 +74,11 @@ public class ClinicHistoryModel {
         this.patient = patient;
     }
 
-    public FormulasModel getFormula() {
+    public FormulaModel getFormula() {
         return formula;
     }
 
-    public void setFormula(FormulasModel formula) {
+    public void setFormula(FormulaModel formula) {
         this.formula = formula;
     }
 }

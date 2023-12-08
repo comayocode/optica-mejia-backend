@@ -39,7 +39,6 @@ public class PatientController {
         return this.patientService.getByCc(cc);
     }
 
-
     //
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Integer id) {
