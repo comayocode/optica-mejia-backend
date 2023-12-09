@@ -25,6 +25,9 @@ public class PatientModel {
     @OneToMany(mappedBy = "patient") // un paciente puede tener muchas historias clínicas
     private List<ClinicHistoryModel> clinic_history;
 
+    @OneToMany(mappedBy = "patient")
+    private List<BillModel> bill;
+
     public int getId() {
         return id;
     }
@@ -111,5 +114,13 @@ public class PatientModel {
 
     public void setClinic_history(List<ClinicHistoryModel> clinic_history) {
         this.clinic_history = clinic_history;
+    }
+
+    public List<BillModel> getBill() {
+        return bill;
+    }
+
+    public void setBill(List<BillModel> bill) {
+        this.bill = bill;
     }
 }
