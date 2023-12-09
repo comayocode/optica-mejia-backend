@@ -16,7 +16,7 @@ public class LeftEyeModel {
     private String pupilarydistance;
 
     @OneToOne
-    private FormulasModel formula;
+    private FormulaModel formula;
 
     public int getId() {
         return id;
@@ -66,11 +66,11 @@ public class LeftEyeModel {
         this.pupilarydistance = pupilarydistance;
     }
 
-    public FormulasModel getFormula() {
+    public FormulaModel getFormula() {
         return formula;
     }
 
-    public void setFormula(FormulasModel formula) {
+    public void setFormula(FormulaModel formula) {
         this.formula = formula;
     }
 
