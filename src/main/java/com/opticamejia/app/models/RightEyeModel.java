@@ -16,7 +16,7 @@ public class RightEyeModel {
     private String pupilarydistance;
 
     @OneToOne
-    private FormulasModel formula; // esta varibale de tipo FormulasModel debe coincidir con el mappedBy de la clase ClinicHistoryModel
+    private FormulaModel formula; // esta varibale de tipo FormulasModel debe coincidir con el mappedBy de la clase ClinicHistoryModel
 
     public int getId() {
         return id;
@@ -66,11 +66,11 @@ public class RightEyeModel {
         this.pupilarydistance = pupilarydistance;
     }
 
-    public FormulasModel getFormula() {
+    public FormulaModel getFormula() {
         return formula;
     }
 
-    public void setFormula(FormulasModel formula) {
+    public void setFormula(FormulaModel formula) {
         this.formula = formula;
     }
 }
