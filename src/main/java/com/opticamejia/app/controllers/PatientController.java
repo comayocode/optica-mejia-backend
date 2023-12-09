@@ -38,15 +38,15 @@ public class PatientController {
     public ArrayList<PatientModel> getByCc(@RequestParam("cc") Integer cc) {
         return this.patientService.getByCc(cc);
     }
-
+    
     //
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") Integer id) {
         boolean ok = this.patientService.deletePatient(id);
         if (ok) {
-            return "Paciente" + id + "eliminado correctamente";
+            return "Paciente " + id + " eliminado correctamente";
         } else {
-            return "Paciente" + id + "no se eliminó";
+            return "Paciente " + id + " no se eliminó";
         }
     }
 }
