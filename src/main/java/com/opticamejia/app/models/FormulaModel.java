@@ -1,10 +1,11 @@
 package com.opticamejia.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "formulas")
-public class FormulasModel {
+public class FormulaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +15,11 @@ public class FormulasModel {
     private ClinicHistoryModel clinic_history; // se relaciona con @OneToOne(mappedBy = "clinic_history") de ClinicHistoryModel
 
     @OneToOne(mappedBy = "formula")
+    @JsonIgnore
     private LeftEyeModel left_eye;
 
-
     @OneToOne(mappedBy = "formula") // debe ser igual que la variable "formula" de tipo FormulaModel en la clase RightEyeModel
+    @JsonIgnore
     private RightEyeModel right_eye;
 
     public int getId() {
