@@ -1,6 +1,10 @@
 package com.opticamejia.app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "modules")
@@ -11,6 +15,10 @@ public class ModuleModel {
     @Column(unique = true, nullable = false)
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "module")
+    @JsonIgnore
+    private List<RoleModuleModel> roleModule;
 
     public int getId() {
         return id;
@@ -26,5 +34,13 @@ public class ModuleModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<RoleModuleModel> getRoleModule() {
+        return roleModule;
+    }
+
+    public void setRoleModule(List<RoleModuleModel> roleModule) {
+        this.roleModule = roleModule;
     }
 }

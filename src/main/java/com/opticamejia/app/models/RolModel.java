@@ -3,6 +3,9 @@ package com.opticamejia.app.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "roles")
 public class RolModel {
@@ -16,6 +19,10 @@ public class RolModel {
     @OneToOne(mappedBy = "rol")
     @JsonIgnore
     private UserModel user;
+
+    @OneToMany(mappedBy = "role")
+    @JsonIgnore
+    private List<RoleModuleModel> roleModule;
 
     public int getId() {
         return id;
@@ -39,5 +46,13 @@ public class RolModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public List<RoleModuleModel> getRoleModule() {
+        return roleModule;
+    }
+
+    public void setRoleModule(List<RoleModuleModel> roleModule) {
+        this.roleModule = roleModule;
     }
 }
