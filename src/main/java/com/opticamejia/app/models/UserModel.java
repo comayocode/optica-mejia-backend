@@ -14,6 +14,9 @@ public class UserModel {
     private String email;
     private String password;
 
+    @OneToOne
+    private RolModel rol;
+
     public int getId() {
         return id;
     }
@@ -44,5 +47,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public RolModel getRol() {
+        return rol;
+    }
+
+    public void setRol(RolModel rol) {
+        this.rol = rol;
     }
 }
