@@ -1,9 +1,10 @@
 package com.opticamejia.app.repositories;
 
 import com.opticamejia.app.models.UserModel;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface UserRepository extends CrudRepository<UserModel, Integer> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<UserModel, Integer> {
+    Optional<UserModel> findByUsername(String username);
 }

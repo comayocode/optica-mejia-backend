@@ -1,59 +1,59 @@
 package com.opticamejia.app.models;
 
+import com.opticamejia.app.User.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class UserModel {
+@Table(name="users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})}) // No se repite el username
+public class UserModel implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private int id;
-    private String name;
-    private String email;
-    private String password;
+    @GeneratedValue
+    Integer id;
+    @Column(nullable = false)
+    String username;
+    String firstname;
+    String lastname;
+    String password;
+    @Enumerated(EnumType.STRING)
+    Role role;
 
-    @OneToOne
-    private RolModel rol;
-
-    public int getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.name())));
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public RolModel getRol() {
-        return rol;
-    }
-
-    public void setRol(RolModel rol) {
-        this.rol = rol;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
