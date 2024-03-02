@@ -3,8 +3,11 @@
 package com.opticamejia.app.controllers;
 
 import com.opticamejia.app.models.PatientModel;
+import com.opticamejia.app.models.UserModel;
 import com.opticamejia.app.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ public class PatientController {
     PatientService patientService;
 
     @GetMapping() // método para petición get
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public ArrayList<PatientModel> getPatients() {
         return patientService.getPatients(); // llamar método getPatients de PatientService
     }
@@ -29,6 +33,7 @@ public class PatientController {
 
     // mostrar usuario por su id
     @GetMapping(path = "/{id}") // localhost:8080/patient/2
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public Optional<PatientModel> getById(@PathVariable("id") Integer id) {
         return this.patientService.getById(id); // llamar método de PatientService
     }
