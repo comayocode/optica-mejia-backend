@@ -5,6 +5,7 @@ import com.opticamejia.app.models.PatientModel;
 import com.opticamejia.app.services.ClinicHistoryService;
 import com.opticamejia.app.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,24 +24,27 @@ public class ClinicHistoryController {
 
     // mostrar todas las historias clínicas
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public ArrayList<ClinicHistoryModel> getClinicHistories() {
         return clinicHistoryService.getClinicHistories();
     }
 
     // obtener historia clínica única por el id = localhost:8080/clinic-history/{id}
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public Optional<ClinicHistoryModel> getById(@PathVariable("id") Integer id) {
         return this.clinicHistoryService.getById(id);
     }
 
     // guardar historia clínica
-    @PostMapping
-    public ClinicHistoryModel saveClinicHistory(@RequestBody ClinicHistoryModel clinicHistory) {
+    @PostMapping(path = "/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
+    public ClinicHistoryModel saveClinicHistory(@PathVariable("id") Integer id, @RequestBody ClinicHistoryModel clinicHistory) {
 
         Date date = new Date();
         clinicHistory.setDate(date); // guardar la fecha actual automáticamente
 
-        PatientModel patient = patientService.getById(5).get(); // obtener el paciente con X id
+        PatientModel patient = patientService.getById(id).get(); // obtener el paciente con X id
         clinicHistory.setPatient(patient); // enviar el paciente con id X manuelmente (más adelante se enviará dinámicamente)
 
         return this.clinicHistoryService.saveClinicHistory(clinicHistory);
@@ -48,6 +52,7 @@ public class ClinicHistoryController {
 
     // eliminar historia clínica por su id
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public String deleteById(@PathVariable("id") Integer id) {
         boolean ok = this.clinicHistoryService.deleteClinicHistory(id);
         if (ok) {
