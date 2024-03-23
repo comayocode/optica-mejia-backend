@@ -5,6 +5,7 @@ import com.opticamejia.app.models.LeftEyeModel;
 import com.opticamejia.app.services.FormulaService;
 import com.opticamejia.app.services.LeftEyeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,20 +21,23 @@ public class LeftEyeController {
     FormulaService formulaService;
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public ArrayList<LeftEyeModel> getLeftEye() {
         return leftEyeService.getLeftEye();
     }
 
-    @PostMapping()
-    public LeftEyeModel saveLeftEye(@RequestBody LeftEyeModel leftEye) {
+    @PostMapping(path = "/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
+    public LeftEyeModel saveLeftEye(@PathVariable("id") Integer id, @RequestBody LeftEyeModel leftEye) {
 
-        FormulaModel formula = formulaService.getById(12).get();
+        FormulaModel formula = formulaService.getById(id).get();
         leftEye.setFormula(formula);
 
         return  this.leftEyeService.saveLeftEye(leftEye);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'OPTOMETRA')")
     public String deleteById(@PathVariable("id")Integer id) {
         boolean ok = this.leftEyeService.deleteLeftEye(id);
         if(ok) {
